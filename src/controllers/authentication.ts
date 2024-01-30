@@ -48,6 +48,9 @@ export const login = async (req: express.Request, res: express.Response) => {
 
         const user = result[0];
 
+        if (!user.salt || !password) {
+            return res.sendStatus(400);
+        }
         const expectedHash = authentication(user.salt, password);
 
         if (user.password !== expectedHash) {

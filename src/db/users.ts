@@ -1,6 +1,6 @@
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { InferModel, eq } from 'drizzle-orm';
-import { pgTable, serial, text } from 'drizzle-orm/pg-core';
+import { pgTable, serial, text, integer, jsonb } from 'drizzle-orm/pg-core';
 import { Pool } from 'pg';
 
 export const users = pgTable('users', {
@@ -16,7 +16,7 @@ export type User = InferModel<typeof users>;
 export type NewUser = InferModel<typeof users, 'insert'>;
 
 const pool = new Pool({
-    connectionString: process.env.DB,
+    connectionString: process.env.DB_URL,
 });
 
 const db = drizzle(pool);
